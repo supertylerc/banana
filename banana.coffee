@@ -25,10 +25,9 @@ pingEndpoints = (callback) ->
 
         results.push result
         if DEBUG
-          fs.writeFile logFile, JSON.stringify(result), (err) ->
-            console.error err
+          fs.appendFile logFile, JSON.stringify(result) + '\n', (err) ->
+            console.error err if err
             return
-        console.log chalkDebug(JSON.stringify(result)) if DEBUG
         callback results  if ++completed is totalTargets
         return
       return
