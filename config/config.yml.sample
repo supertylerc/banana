@@ -1,0 +1,8 @@
+---
+
+size: 64 
+endpoints: 
+  network:
+    - { target: "1.2.3.4", description: "all the things!" }
+  servers:
+    - { target: "4.3.2.1", description: "dns-name-here.example.com" }
