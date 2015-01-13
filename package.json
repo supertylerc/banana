@@ -1,0 +1,20 @@
+{
+  "name": "banana",
+  "version": "0.0.1",
+  "description": "Determine IP connectivity to a list of hosts.",
+  "main": "banana.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "networking"
+  ],
+  "author": "Tyler Christiansen",
+  "license": "BSD 2-Clause",
+  "dependencies": {
+    "fs": "0.0.2",
+    "chalk": "^0.5.1",
+    "js-yaml": "^3.2.5",
+    "net-ping": "^1.1.11"
+  }
+}

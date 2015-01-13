@@ -1,0 +1,44 @@
+---
+
+- name: Install banana
+  sudo: yes
+  sudo_user: "{{ banana.user }}"
+  git:
+    repo=https://github.com/supertylerc/banana.git
+    dest=~/banana
+  tags: banana
+
+- name: Copy banana Configuration
+  copy:
+    src=config.yml
+    dst=~/banana/config/config.yml
+    group=banana
+    user=banana
+    mode=0400
+  tags: banana
+
+- name: Install coffeescript
+  sudo: yes
+  sudo_user: "{{ banana.user }}"
+  command: sudo -iu {{ banana.user }} npm install coffeescript
+  register: coffee_install
+  changed_when: "'GET' in coffee_install.stdout"
+  tags: banana
+
+- name: Install Dependencies
+  sudo: yes
+  sudo_user: "{{ banana.user }}"
+  shell:
+    sudo -iu {{ banana.user }} npm install
+    chdir=~/banana
+  register: banana_install
+  changed_when: "'GET' in banana_install.stdout"
+  tags: banana
+
+- name: Compile banana
+  sudo: yes
+  sudo_user: "{{ banana.user }}"
+  shell:
+    sudo -iu {{ banana.user }} coffee -c banana.coffee
+    chdir=~/banana
+  tags: banana

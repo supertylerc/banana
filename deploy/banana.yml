@@ -1,0 +1,22 @@
+---
+
+- name: Install banana
+  hosts: bananas
+  pre_tasks:
+    - name: "Create User"
+      user:
+        name=banana
+        home=/home/banana
+        system=yes
+      tags: banana
+
+  roles:
+    - role: "nvm"
+      nvm:
+        user: "banana"
+        version: "HEAD"
+        node_version: "0.10"
+
+    - role: "banana"
+      banana:
+        user: "banana"
