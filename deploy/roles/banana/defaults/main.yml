@@ -2,3 +2,4 @@
 
 banana:
   user: "banana"
+  node_version: "0.10.35"

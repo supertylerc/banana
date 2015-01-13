@@ -1,13 +1,14 @@
 ---
-
 - name: Install banana
   hosts: bananas
   pre_tasks:
     - name: "Create User"
+      sudo: yes
       user:
         name=banana
         home=/home/banana
         system=yes
+        shell=/bin/bash
       tags: banana
 
   roles:
@@ -15,8 +16,6 @@
       nvm:
         user: "banana"
         version: "HEAD"
-        node_version: "0.10"
+        node_version: "0.10.35"
 
     - role: "banana"
-      banana:
-        user: "banana"

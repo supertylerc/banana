@@ -9,36 +9,37 @@
   tags: banana
 
 - name: Copy banana Configuration
+  sudo: yes
+  sudo_user: "{{ banana.user }}"
   copy:
     src=config.yml
-    dst=~/banana/config/config.yml
+    dest=~/banana/config/config.yml
     group=banana
-    user=banana
+    owner=banana
     mode=0400
   tags: banana
 
 - name: Install coffeescript
   sudo: yes
   sudo_user: "{{ banana.user }}"
-  command: sudo -iu {{ banana.user }} npm install coffeescript
-  register: coffee_install
-  changed_when: "'GET' in coffee_install.stdout"
+  npm:
+    name=coffee-script
+    path=/home/{{ banana.user }}/.nvm/v{{ banana.node_version }}/lib/node_modules
+    executable=/home/{{ banana.user }}/.nvm/v{{ banana.node_version }}/bin/npm
   tags: banana
 
 - name: Install Dependencies
   sudo: yes
   sudo_user: "{{ banana.user }}"
-  shell:
-    sudo -iu {{ banana.user }} npm install
-    chdir=~/banana
-  register: banana_install
-  changed_when: "'GET' in banana_install.stdout"
+  npm:
+    path=/home/{{ banana.user }}/banana
+    executable=/home/{{ banana.user }}/.nvm/v{{ banana.node_version }}/bin/npm
   tags: banana
 
 - name: Compile banana
   sudo: yes
-  sudo_user: "{{ banana.user }}"
-  shell:
-    sudo -iu {{ banana.user }} coffee -c banana.coffee
-    chdir=~/banana
+  #sudo_user: "{{ banana.user }}"
+  command:
+    sudo -iu {{ banana.user }} /home/{{ banana.user }}/.nvm/v{{ banana.node_version }}/lib/node_modules/coffee-script/bin/coffee -c --output banana banana
+    chdir=/home/{{ banana.user }}/banana
   tags: banana

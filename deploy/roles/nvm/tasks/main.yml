@@ -31,7 +31,7 @@
 - name: Check Default node.js Version ({{ nvm.node_version }})
   shell:
     sudo -iu {{ nvm.user }} nvm ls | grep -e 'default -> {{ nvm.node_version }}'
-  register: nvm_version_check
+  register: node_version_check
   changed_when: False
   ignore_errors: True
   tags: [ nvm, nodejs ]
@@ -40,5 +40,3 @@
   command: sudo -iu {{ nvm.user }} nvm alias default {{ nvm.node_version }}
   when: node_version_check|failed
   tags: [ nvm, node ]
-
-- name: 
