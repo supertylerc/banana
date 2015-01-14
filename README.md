@@ -19,7 +19,8 @@ this feature is not implemented yet.
 4. Clone this repository. (`git clone https://github.com/supertylerc/banana`)
 5. `cd` to the banana directory.
 6. Compile the CoffeeScript. (`coffee -c banana.coffee`) - OPTIONAL
-7. Run the application. (`node banana.js` or `coffee banana.coffee`)
+7. Run the application. (`sudo node banana.js` or `sudo coffee banana.coffee`)
+
 
 ### Automated
 
@@ -28,7 +29,29 @@ this feature is not implemented yet.
 3. Copy the playbook in `deploy/` to your Ansible playbooks directory.
 4. Modify variables as you see fit.
 5. Run the `banana.yml` playbook.
-6. Log into the server(s) and run the application. (`node banana.js`)
+6. Log into the server(s) and run the application. (`sudo node banana.js`)
+
+### Permissions
+
+`banana` requires elevated permissions.  This is because you must have
+elevated permissions to craft ICMP packets.  This is obviously a security
+concern, and I encourage you to read the source code to ensure I'm not
+doing anything sneaky.  The code is pretty short and simple.
+
+To get around some security concerns, you can add the following to your
+`/etc/sudoers` file (by typing `sudo visudo`):
+
+```
+banana ALL=(ALL) NOPASSWD: /home/banana/.nvm/v0.10.35/bin/node banana.js
+```
+
+The above line allows the user `banana` to _only_ run `node` as root, and
+further only allows it to happen when the only argument is `banana.js`.
+This means that a malicious `banana` can only ever execute
+`/home/banana/.nvm/v0.10.35/bin/node banana.js` with elevated permissions--
+unless, of course, that `banana` is a member of a group that allows elevated
+permissions.  If you choose to use the above example rule, please remember
+to substitute whatever version of `node` you installed.
 
 # What
 
@@ -79,3 +102,7 @@ IN THE FUTURE!
 `banana` was developed primarily in spare time, although certain aspects
 (such as the Ansible deployment roles and playbook) were written while
 working at Adap.tv.
+
+[1]: http://nodejs.org/ "node.js home page"
+[2]: https://debian.org/ "Debian home page"
+[3]: http://www.redhat.com/en/technologies/linux-platforms/enterprise-linux "RHEL Hhome page"
