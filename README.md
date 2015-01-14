@@ -72,6 +72,8 @@ reachable, it has been tested to take a minimum of 16 seconds to
 complete.  The maximum varies based on how far the traceroute gets and
 has taken as long as 30 seconds.
 
+You can see an example of `banana` running [here][4].
+
 ## The Future
 
 `banana` is evolving into a continuous metric tool to measure latency from
@@ -106,3 +108,4 @@ working at Adap.tv.
 [1]: http://nodejs.org/ "node.js home page"
 [2]: https://debian.org/ "Debian home page"
 [3]: http://www.redhat.com/en/technologies/linux-platforms/enterprise-linux "RHEL Hhome page"
+[4]: http://imgur.com/a/HKZ7I "Banana Example Runs"
